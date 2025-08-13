@@ -22,17 +22,18 @@ This will place the `google-storage-dumper` binary in your `$GOPATH/bin` or `$GO
 ## Usage
 
 ```sh
-go run main.go -storage-url=<storage-url> -bucket-name=<bucket-name> [data-folder]
+google-storage-dumper -storage-url=<storage-url> -bucket-name=<bucket-name> [data-folder]
 ```
 
 - `-storage-url`: Base URL for Google Cloud Storage (default: `https://storage.googleapis.com/`)
 - `-bucket-name`: Name of the bucket to download from (default: `pokemongolive`)
+- `-concurrency`: Number of concurrent downloads (default: `10`)
 - `data-folder` (optional, positional): Local directory to save files (default: `./data`)
 
 ### Example
 
 ```sh
-go run main.go ./output -bucket-name=my-bucket
+google-storage-dumper ./output -bucket-name=my-bucket
 ```
 
 ## Requirements

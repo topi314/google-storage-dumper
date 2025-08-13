@@ -14,9 +14,10 @@ import (
 )
 
 var (
-	storageURL string
-	bucketName string
-	dataFolder string
+	storageURL  string
+	bucketName  string
+	concurrency int
+	dataFolder  string
 )
 
 type ListBucketResult struct {
@@ -45,14 +46,17 @@ var client = &http.Client{
 func main() {
 	flag.StringVar(&storageURL, "storage-url", "https://storage.googleapis.com/", "Google Cloud Storage URL")
 	flag.StringVar(&bucketName, "bucket-name", "pokemongolive", "Bucket name to download from")
+	flag.IntVar(&concurrency, "concurrency", 10, "Number of concurrent downloads")
+	flag.Parse()
+
 	dataFolder = flag.Arg(0)
 	if dataFolder == "" {
 		dataFolder = "./data"
 	}
-	flag.Parse()
 
 	log.Printf("Storage URL: %s", storageURL)
 	log.Printf("Bucket Name: %s", bucketName)
+	log.Printf("Concurrency: %d", concurrency)
 	log.Printf("Data Folder: %s", dataFolder)
 
 	if err := os.MkdirAll(dataFolder, 0777); err != nil {
